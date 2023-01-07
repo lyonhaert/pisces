@@ -68,4 +68,3 @@ if (bkcg != -1)
 {
 	background_sprite = bkcg
 }
-

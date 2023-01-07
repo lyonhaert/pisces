@@ -1,4 +1,4 @@
-/// @description
+/// @description Right Pressed
 if not is_hovering return;
 
 clear_all_menus();

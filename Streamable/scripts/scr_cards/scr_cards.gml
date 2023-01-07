@@ -215,3 +215,9 @@ function card_destroy(card_inst)
 	x = next_x;
 	y = next_y;
 }
+
+function shuffle_deck() {
+	array_shuffle(obj_deck.stack_list)
+	
+	instance_create_layer(room_width / 2, room_height / 4, "Instances", obj_deck_shuffled)
+}

@@ -101,11 +101,11 @@ function CardFactory() constructor
 				{
 					case "list":
 						card_data = data.data[0];
-					break;
+						break;
 					
 					case "card":
 						card_data = data;
-					break;
+						break;
 					
 					default:
 						return false;

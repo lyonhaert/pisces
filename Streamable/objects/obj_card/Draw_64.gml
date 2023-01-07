@@ -2,6 +2,8 @@
 var x_offset = sprite_width / 2;
 var y_offset = sprite_height / 2;
 
+var counterSize = 20;
+
 // The corners of the card:
 var draw_points = {
 	x1 : x - x_offset,
@@ -154,15 +156,34 @@ if note_content != "" and not is_zoomed and not is_tapping
 
 if counters != 0
 {
-		draw_set_valign(fa_center);
-		draw_set_halign(fa_center);
-		
+	var ctrx1 = x4 - counterSize;
+	var ctrx2 = x4 + counterSize;
+	var ctry1 = y4 - counterSize;
+	var ctry2 = y4 + counterSize;
+	
+	draw_set_valign(fa_center);
+	draw_set_halign(fa_center);
+	
+	draw_set_alpha(0.85);
+	draw_roundrect_color_ext(ctrx1, ctry1, ctrx2, ctry2, 5, 5, c_black, c_black, false);
+	
+	draw_set_color(c_white);
+	draw_set_alpha(1.0);
+	draw_text(x4, y4, string(counters));
+	
+	if is_zoomed {
+		var ctrlblx1 = ctrx1 - 5;
+		draw_set_halign(fa_right);
 		draw_set_alpha(0.85);
-		draw_roundrect_color_ext(x4 - 20, y4 - 20, x4 + 20, y4 + 20, 5, 5, c_black, c_black, false);
-		
+		draw_set_color(c_black);
+		draw_text(ctrlblx1 - 1, y4 - 1, "counters");
+		draw_text(ctrlblx1 - 1, y4 + 1, "counters");
+		draw_text(ctrlblx1 + 1, y4 - 1, "counters");
+		draw_text(ctrlblx1 + 2, y4 + 2, "counters");
+		draw_set_alpha(1);
 		draw_set_color(c_white);
-		draw_set_alpha(1.0);
-		draw_text(x4, y4, string(counters));
+		draw_text(ctrx1 - 5, y4, "counters");
+	}
 }
 
 // Write to webcam surface:

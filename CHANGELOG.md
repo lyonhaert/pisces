@@ -1,3 +1,7 @@
+# newnew
+- Simple "Deck shuffled!" notification
+
+
 # UNRELEASED
 - Added upside-down flip with shift+F. (No right-click menu entry yet)
 - Fixed bug where only the keyboard top row numbers could be used to preceed `D`, `M`, or `R` keybinds with an amount of cards to draw, mill, or scry (respectively). Now the numpad numbers work, too.

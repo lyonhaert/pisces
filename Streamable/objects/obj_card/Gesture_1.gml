@@ -1,4 +1,4 @@
-/// @description Tap
+/// @description Double-Tap
 if !is_hovering return;
 if parent_stack != noone return;
 
