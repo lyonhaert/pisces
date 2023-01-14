@@ -19,10 +19,28 @@ var text_field = instance_create_layer(x + 10, y + 95, "UI", obj_text_field, {
 	"height": field_height + 10,
 });
 
-var scry_search = method({"card": card, "text_field": text_field, "parent_component": id}, function() { 
-		card.note_content = text_field.curr_string;
+var cards = [];
+
+if card.is_selected {
+	with (obj_card) {
+		if !is_selected continue;
+		
+		array_push(cards, self);
+	}
+} else {
+	array_push(cards, card);
+}
+
+var scry_search = method(
+	{"cards": cards, "text_field": text_field, "parent_component": id},
+	function() {
+		for (var i = 0; i < array_length(cards); i++) {
+			cards[i].note_content = text_field.curr_string;
+		}
+		//card.note_content = text_field.curr_string;
 		close_top_component();
-	});
+	}
+);
 	
 text_field.on_enter = scry_search;
 text_field.curr_string = card.note_content

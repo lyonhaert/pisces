@@ -80,10 +80,10 @@ if array_length(all_parts) > 0
 }
 
 my_menu.AddSeparator();
+my_menu.AddOption(note);
 my_menu.AddOption(add_counter);
 my_menu.AddOption(rem_counter);
 //my_menu.AddOption(spawn);
-my_menu.AddOption(note);
 my_menu.AddSeparator();
 my_menu.AddOption(send_to);
 my_menu.AddOption(destroy);
