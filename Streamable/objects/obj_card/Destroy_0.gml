@@ -10,35 +10,35 @@ var my_id = id;
 
 with (obj_card)
 {
-	if my_id != id {
-		if uniq_front && front_sprite == front {
-			uniq_front = false;		
-		}
-		if uniq_back && back_sprite == back {
-			uniq_back = false;
-		}
+	if my_id == id continue
+
+	if uniq_front && front_sprite == front {
+		uniq_front = false;		
+	}
+	if uniq_back && back_sprite == back {
+		uniq_back = false;
 	}
 }
 
 with (obj_card_spawner)
 {
-	if my_id != id {
-		if uniq_front && front_sprite == front {
-			uniq_front = false;		
-		}
-		if uniq_back && back_sprite == back {
-			uniq_back = false;
-		}
+	if my_id == id continue
+	
+	if uniq_front && front_sprite == front {
+		uniq_front = false;		
+	}
+	if uniq_back && back_sprite == back {
+		uniq_back = false;
 	}
 }
 
 if uniq_front {
-	show_debug_message("destroying unique sprite " + string(front_sprite));
+	show_debug_message("unloading unique sprite " + string(front_sprite));
 	sprite_delete(front_sprite);
 }
 
 if uniq_back {
-	show_debug_message("destroying unique sprite " + string(back_sprite));
+	show_debug_message("unloading unique sprite " + string(back_sprite));
 	sprite_delete(back_sprite);	
 }
 
@@ -49,3 +49,6 @@ my_partsmenu.Destroy();
 delete my_partsmenu;
 delete my_submenu;
 delete my_menu;
+
+delete default_subbed_events;
+delete during_drag_events;

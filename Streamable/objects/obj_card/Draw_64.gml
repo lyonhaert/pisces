@@ -189,12 +189,7 @@ if counters != 0
 // Write to webcam surface:
 if camera_mirroring_enabled()
 {
-	var spr = obj_options.card_back_sprite;
-	
-	if is_revealed
-	{
-		spr = get_card_sprite(self);	
-	}
+	if !is_revealed spr = obj_options.card_back_sprite;
 	
 	surface_set_target(obj_surface_writer.display_surface);
 	

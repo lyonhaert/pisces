@@ -30,7 +30,6 @@ function CardFactory() constructor
 	
 	static PopulateDataViaScryfallSearch = function(search)
 	{
-		
 		card_data_req = scryfall_search(search);
 	}
 	
@@ -179,12 +178,27 @@ function CardFactory() constructor
 		cards = array_create(number);
 		
 		for (var j = 0; j < number; j++) {
+			var cardinfo = {
+				"id": card_data.id,
+				"name": card_data.name,
+				"lang": card_data.lang,
+				"scryfall_uri": card_data.scryfall_uri,
+				"type_line": card_data.type_line
+			}
+			
+			structCopyIfExists(card_data, "power", cardinfo)
+			structCopyIfExists(card_data, "toughness", cardinfo)
+			structCopyIfExists(card_data, "mana_cost", cardinfo)
+			structCopyIfExists(card_data, "oracle_text", cardinfo)
+			structCopyIfExists(card_data, "cmc", cardinfo)
+		
 			var data_struct = { 
 				"name": card_data.name, 
 				sprite_index: front_sprite, 
 				"front_sprite": front_sprite, 
 				"back_sprite": back_sprite,
-				"all_parts": []
+				"all_parts": [],
+				"cardinfo": cardinfo
 			}
 			
 			if variable_struct_exists(card_data, "all_parts")

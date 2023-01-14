@@ -18,6 +18,11 @@ function save_settings_ini() {
 	ini_close();
 }
 
+function structCopyIfExists(fromStruct, fromName, toStruct, toName = undefined) {
+	if variable_struct_exists(fromStruct, fromName)
+		toStruct[$ toName ?? fromName] = fromStruct[$ fromName]
+}
+
 function increase_game_size(options_inst)
 {
 	options_inst.default_scaling = clamp(options_inst.default_scaling + 0.05, 0.1, 0.5);

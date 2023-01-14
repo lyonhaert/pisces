@@ -56,7 +56,8 @@ function duplicate_card(card_inst)
 		"is_upsidedown": card_inst.is_upsidedown,
 		"is_revealed": card_inst.is_revealed,
 		"is_flipped": card_inst.is_flipped,
-		"all_parts": card_inst.all_parts
+		"all_parts": card_inst.all_parts,
+		"cardinfo": card_inst.cardinfo
 	});
 }
 
