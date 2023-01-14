@@ -1,5 +1,12 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
+function structCopyIfExists(fromStruct, fromName, toStruct, toName = "" ) {
+	if toName == "" toName = fromName
+	
+	if variable_struct_exists(fromStruct, fromName)
+		toStruct[$ toName] = fromStruct[$ fromName]
+}
+
 function ini_b2str(flag) { return flag ? "true" : "false"; }
 
 function load_settings_ini() {
@@ -76,8 +83,7 @@ function load_decklist(options_inst)
 		if splitContents[0] == "x"
 		{
 			//  its an archidekt list! cull this and process the rest of the entry accordingly
-			for (var i = 1; i<arLen; i+=1)
-			{
+			for (var i = 1; i<arLen; i+=1) {
 
 				array_set(splitContents,i-1,splitContents[i]);
 			}

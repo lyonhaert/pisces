@@ -36,13 +36,19 @@ function toggle_upsidedown_card(card_inst) {
 
 function get_card_sprite(card_inst)
 {
-	if card_inst.is_flipped {
-		return card_inst.back_sprite == -1
-			? obj_options.card_back_sprite
-			: card_inst.back_sprite;
-	}
+	if obj_options.useSpriteMgr {
+		var s = gGetCardSpriteByName(card_inst.name, card_inst.is_flipped)
+		var r = s ?? obj_options.card_back_sprite
+		return r
+	} else {
+		if card_inst.is_flipped {
+			return card_inst.back_sprite == -1
+				? obj_options.card_back_sprite
+				: card_inst.back_sprite;
+		}
 
-	return card_inst.front_sprite;
+		return card_inst.front_sprite;
+	}
 }
 
 function duplicate_card(card_inst)
@@ -56,7 +62,8 @@ function duplicate_card(card_inst)
 		"is_upsidedown": card_inst.is_upsidedown,
 		"is_revealed": card_inst.is_revealed,
 		"is_flipped": card_inst.is_flipped,
-		"all_parts": card_inst.all_parts
+		"all_parts": card_inst.all_parts,
+		"cardinfo": card_inst.cardinfo
 	});
 }
 

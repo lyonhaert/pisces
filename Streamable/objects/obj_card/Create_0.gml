@@ -1,3 +1,7 @@
+if obj_options.useSpriteMgr {
+	gRegisterCardSpriteUser(self)
+}
+
 offset_drag = false;
 
 is_tapping = false;

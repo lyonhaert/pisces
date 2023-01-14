@@ -88,13 +88,13 @@ function CardFactory() constructor
 	static HandleDataPopulation = function() {
 		var response_id = async_load[? "id"];
 		var response_status = async_load[? "status"];
-	
+
 		if response_id == card_data_req
 		{
 			if response_status == 0
 			{
 				var json = async_load[? "result"];
-				show_debug_message(json);
+				//show_debug_message(json);
 				var data = json_parse(json);
 				
 				switch (data.object)
@@ -110,20 +110,43 @@ function CardFactory() constructor
 					default:
 						return false;
 				}
-
-				// The card layout supports a backface:
-				if (card_data.layout == "modal_dfc" or 
-					card_data.layout == "transform" or 
-					card_data.layout == "double_faced_token")
-				{
-					LoadBackSprite()
-					
-					// If the sprite was cached load the front sprite immediately:
-					if back_sprite != -1 LoadFrontSprite();
+				
+				var isTwoSide = false
+				switch (card_data.layout) {
+					case "modal_dfc":
+					case "transform":
+					case "double_faced_token":
+						isTwoSide = true
 				}
-				else
-				{
-					LoadFrontSprite()	
+				
+				var mgrCheck = undefined
+				
+				if obj_options.useSpriteMgr {
+					mgrCheck = gGetCardSpriteByName(card_data.name)
+					if mgrCheck {
+						front_sprite = mgrCheck
+						show_debug_message("using existing front sprite " + string(front_sprite));
+						
+						if isTwoSide {
+							back_sprite = gGetCardSpriteByName(card_data.name, true)
+							show_debug_message("using existing back sprite " + string(back_sprite));
+						}
+					}
+				}
+				
+				if !mgrCheck {
+					// The card layout supports a backface:
+					if (isTwoSide)
+					{
+						LoadBackSprite()
+					
+						// If the sprite was cached load the front sprite immediately:
+						if back_sprite != -1 LoadFrontSprite();
+					}
+					else
+					{
+						LoadFrontSprite()	
+					}
 				}
 			}
 			else if response_status == -1
@@ -179,12 +202,27 @@ function CardFactory() constructor
 		cards = array_create(number);
 		
 		for (var j = 0; j < number; j++) {
+			var cardinfo = {
+				"id": card_data.id,
+				"name": card_data.name,
+				"lang": card_data.lang,
+				"scryfall_uri": card_data.scryfall_uri,
+				"type_line": card_data.type_line
+			}
+			
+			structCopyIfExists(card_data, "power", cardinfo)
+			structCopyIfExists(card_data, "toughness", cardinfo)
+			structCopyIfExists(card_data, "mana_cost", cardinfo)
+			structCopyIfExists(card_data, "oracle_text", cardinfo)
+			structCopyIfExists(card_data, "cmc", cardinfo)
+			
 			var data_struct = { 
 				"name": card_data.name, 
 				sprite_index: front_sprite, 
 				"front_sprite": front_sprite, 
 				"back_sprite": back_sprite,
-				"all_parts": []
+				"all_parts": [],
+				"cardinfo": cardinfo
 			}
 			
 			if variable_struct_exists(card_data, "all_parts")
@@ -201,6 +239,9 @@ function CardFactory() constructor
 				}
 			}
 			
+			if obj_options.useSpriteMgr {
+				gRegisterSprites(card_data.name, front_sprite, back_sprite)
+			}
 			cards[j] = instance_create_layer(create_x, create_y, "Battlefield", obj_card, data_struct);
 		}
 		

@@ -68,3 +68,6 @@ if (bkcg != -1)
 {
 	background_sprite = bkcg
 }
+
+SpriteMgr = new SpriteMgr()
+useSpriteMgr = true
