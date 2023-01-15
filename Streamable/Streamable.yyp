@@ -107,6 +107,7 @@
     {"id":{"name":"spr_book","path":"sprites/spr_book/spr_book.yy",},"order":11,},
     {"id":{"name":"spr_shapes","path":"sprites/spr_shapes/spr_shapes.yy",},"order":15,},
     {"id":{"name":"obj_card_stack","path":"objects/obj_card_stack/obj_card_stack.yy",},"order":0,},
+    {"id":{"name":"url_encode","path":"scripts/url_encode/url_encode.yy",},"order":1,},
     {"id":{"name":"obj_scry","path":"objects/obj_scry/obj_scry.yy",},"order":19,},
     {"id":{"name":"any_stack_active","path":"scripts/any_stack_active/any_stack_active.yy",},"order":0,},
     {"id":{"name":"spr_d10_logo","path":"sprites/spr_d10_logo/spr_d10_logo.yy",},"order":31,},

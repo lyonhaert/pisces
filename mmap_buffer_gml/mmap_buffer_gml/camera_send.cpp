@@ -15,6 +15,9 @@
 
 // Camera
 VirtualOutput* camera;
+double _width = 0;
+double _height = 0;
+double _fps = 0;
 
 // Buffer data from GMS
 unsigned char* data_buff;
@@ -41,6 +44,18 @@ extern "C" __declspec(dllexport) double camera_is_installed()
     }
 }
 
+extern "C" __declspec(dllexport) double set_output(double width, double height, double fps)
+{
+    if (camera != NULL)
+    {
+        return 0;
+    }
+
+    _width = width;
+    _height = height;
+    _fps = fps;
+}
+
 extern "C" __declspec(dllexport) double start_camera(unsigned char* buff, unsigned char* ready, double buff_nums)
 {
     std::lock_guard<std::mutex> lock(mut);
@@ -50,15 +65,16 @@ extern "C" __declspec(dllexport) double start_camera(unsigned char* buff, unsign
         return 0;
     }
 
-    int width = 1920;
-    int height = 1080;
-    int fps = 60;
+    if (!(_width > 0 && _height > 0 && _fps > 0))
+    {
+        return 0;
+    }
 
     data_buff = buff;
     data_ready = ready;
     data_buffs = (int) buff_nums;
 
-    camera = new VirtualOutput(width, height, fps, libyuv::FOURCC_ABGR);
+    camera = new VirtualOutput(_width, _height, _fps, libyuv::FOURCC_ABGR);
     thread_thing = std::thread(camera_impl);
 
     shouldQuit = false;
@@ -92,7 +108,7 @@ void camera_impl()
         if (!shouldQuit)
         {
             // Send frame
-            unsigned char* buff = &data_buff[curr_buff * 1920 * 1080 * 4];
+            unsigned char* buff = &data_buff[curr_buff * (int)_width * (int)_height * 4];
             unsigned char* ready = &data_ready[curr_buff];
 
             if (*ready == 2)
