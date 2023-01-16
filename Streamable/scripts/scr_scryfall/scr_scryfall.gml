@@ -178,20 +178,24 @@ function CardFactory() constructor
 		cards = array_create(number);
 		
 		for (var j = 0; j < number; j++) {
+			var typesLookup = {};
+			var typeParts = string_split_ext(card_data.type_line, [" ", "-", "—"], true)
+			for (var i = 0; i < array_length(typeParts); i++) {
+				typesLookup[$ typeParts[i]] = true
+			}
+
 			var cardinfo = {
 				"id": card_data.id,
 				"name": card_data.name,
 				"lang": card_data.lang,
 				"scryfall_uri": card_data.scryfall_uri,
-				"type_line": card_data.type_line
+				"type_line": card_data.type_line,
+				"type_lookup": typesLookup
 			}
 			
-			structCopyIfExists(card_data, "power", cardinfo)
-			structCopyIfExists(card_data, "toughness", cardinfo)
-			structCopyIfExists(card_data, "mana_cost", cardinfo)
-			structCopyIfExists(card_data, "oracle_text", cardinfo)
-			structCopyIfExists(card_data, "cmc", cardinfo)
-		
+			structCopyIfExists(card_data, cardinfo,
+				["power", "toughness", "mana_cost", "oracle_text", "cmc"])
+			
 			var data_struct = { 
 				"name": card_data.name, 
 				sprite_index: front_sprite, 
