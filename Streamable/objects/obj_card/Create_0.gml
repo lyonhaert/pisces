@@ -2,6 +2,7 @@ offset_drag = false;
 
 is_tapping = false;
 tapped = false;
+tap_angle_percentage = 0;
 
 next_x = x
 next_y = y
@@ -21,8 +22,23 @@ time_hovering = 0;
 offset_x = x;
 offset_y = y;
 
-counters = 0;
+//counters = 0;
+counters = {
+	"default": 2346,
+	"test1": 9,
+	"adsfasdf": 77
+}
 
+countersOtherNames = ["adsfasdf", "test1"]
+
+countersDefaultName = "counters"
+if cardinfo.type_lookup[$ "Creature"] {
+	countersDefaultName = "+1/+1"
+} else if cardinfo.type_lookup[$ "Planeswalker"] {
+	countersDefaultName = "Loyalty"
+}
+
+counterSize = 20;
 
 my_submenu = new RightClickMenu();
 my_partsmenu = new RightClickMenu();

@@ -1,15 +1,15 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
-function add_card_counters(card_inst, num = 1) {
-	change_card_counters(card_inst, num);
+function add_card_counters(card_inst, type = "default", num = 1) {
+	change_card_counters(card_inst, type, num);
 }
 
-function sub_card_counters(card_inst, num = 1) {
-	change_card_counters(card_inst, num * -1)
+function sub_card_counters(card_inst, type = "default", num = 1) {
+	change_card_counters(card_inst, type, num * -1)
 }
 
-function change_card_counters(card_inst, num) {
-	card_inst.counters = max(0, card_inst.counters + num)
+function change_card_counters(card_inst, type = "default", num = 1) {
+	card_inst.counters[$ type] = max(0, (card_inst.counters[$ type] ?? 0) + num)
 }
 
 function tap_card(card_inst) 
@@ -37,9 +37,9 @@ function toggle_upsidedown_card(card_inst) {
 function get_card_sprite(card_inst)
 {
 	if card_inst.is_flipped {
-		return card_inst.back_sprite == -1
-			? obj_options.card_back_sprite
-			: card_inst.back_sprite;
+		return card_inst.back_sprite && card_inst.back_sprite != -1
+			? card_inst.back_sprite
+			: obj_options.card_back_sprite;
 	}
 
 	return card_inst.front_sprite;
@@ -57,7 +57,7 @@ function duplicate_card(card_inst)
 		"is_revealed": card_inst.is_revealed,
 		"is_flipped": card_inst.is_flipped,
 		"all_parts": card_inst.all_parts,
-		"cardinfo": card_inst.cardinfo
+		"cardinfo": struct_cloneSimple(card_inst.cardinfo)
 	});
 }
 
@@ -133,7 +133,9 @@ function add_to_card_stack_location(card_inst, stack_inst, pos = -1)
 	card_inst.is_upsidedown = false;
 	
 	if stack_inst.hidden_zone {
-		card_inst.counters = 0;
+		delete card_inst.counters
+		card_inst.counters = {"default": 0}
+		card_inst.countersOtherNames = []
 	}
 
 	if stack_inst.object_index == obj_exile
@@ -147,10 +149,6 @@ function add_to_card_stack_location(card_inst, stack_inst, pos = -1)
 		card_inst.is_revealed = !stack_inst.hidden_zone;
 		card_inst.is_flipped = false;
 	}
-	/* 2022-12-19 lyon
-		seems to me they should reset to front face up going to hand, graveyard, library, and command.
-		exile is the only one where they might legit be put there facedown intentionally.
-	*/
 	
 	show_debug_message("add to zone " + stack_inst.stack_name + " " + string(stack_inst));
 	layer_add_instance(stack_inst.zone_layer, card_inst);

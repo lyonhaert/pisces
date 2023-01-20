@@ -50,7 +50,8 @@ tapped_angle = 90;
 tap_length = 1000000 * 0.33;
 
 snap_to_grid = true;
-grid_size = 64
+grid_size = 64;
+draw_grid = true;
 
 multi_drag = false;
 

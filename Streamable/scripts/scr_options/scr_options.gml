@@ -18,12 +18,16 @@ function save_settings_ini() {
 	ini_close();
 }
 
-function structCopyIfExists(fromStruct, toStruct, names) {
+function struct_CopyNamesIfExists(fromStruct, toStruct, names) {
 	if is_string(names) names = [names]
 	for (var i = 0; i < array_length(names); i++) {
 		if variable_struct_exists(fromStruct, names[i])
 			toStruct[$ names[i]] = fromStruct[$ names[i]]
 	}
+}
+
+function struct_cloneSimple(struct) {
+	return json_parse(json_stringify(struct))
 }
 
 function increase_game_size(options_inst)

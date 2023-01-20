@@ -193,7 +193,7 @@ function CardFactory() constructor
 				"type_lookup": typesLookup
 			}
 			
-			structCopyIfExists(card_data, cardinfo,
+			struct_CopyNamesIfExists(card_data, cardinfo,
 				["power", "toughness", "mana_cost", "oracle_text", "cmc"])
 			
 			var data_struct = { 

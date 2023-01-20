@@ -59,10 +59,10 @@ else
 
 if (is_tapping) {
 	is_tapping += delta_time
-	var angle_percentage = smootherstep(0, obj_options.tap_length, is_tapping)
+	tap_angle_percentage = smootherstep(0, obj_options.tap_length, is_tapping)
 	
 	if (!tapped) {
-		image_angle = obj_options.tapped_angle * angle_percentage
+		image_angle = obj_options.tapped_angle * tap_angle_percentage
 		
 		if (abs(image_angle) >= abs(obj_options.tapped_angle)) {
 			is_tapping = false;
@@ -71,7 +71,7 @@ if (is_tapping) {
 		}
 	}
 	else {
-		image_angle = obj_options.tapped_angle * (1 - angle_percentage)
+		image_angle = obj_options.tapped_angle * (1 - tap_angle_percentage)
 		
 		if (image_angle == 0) {
 			is_tapping = false;

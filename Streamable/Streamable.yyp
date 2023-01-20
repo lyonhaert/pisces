@@ -112,6 +112,7 @@
     {"id":{"name":"any_stack_active","path":"scripts/any_stack_active/any_stack_active.yy",},"order":0,},
     {"id":{"name":"spr_d10_logo","path":"sprites/spr_d10_logo/spr_d10_logo.yy",},"order":31,},
     {"id":{"name":"spr_skull_crossbones","path":"sprites/spr_skull_crossbones/spr_skull_crossbones.yy",},"order":13,},
+    {"id":{"name":"scr_card_drawing","path":"scripts/scr_card_drawing/scr_card_drawing.yy",},"order":1,},
     {"id":{"name":"obj_height_manager","path":"objects/obj_height_manager/obj_height_manager.yy",},"order":16,},
     {"id":{"name":"scr_scryfall","path":"scripts/scr_scryfall/scr_scryfall.yy",},"order":0,},
     {"id":{"name":"obj_scryfall_window","path":"objects/obj_scryfall_window/obj_scryfall_window.yy",},"order":6,},
