@@ -8,7 +8,7 @@ if loadData == undefined {
 	return
 }
 
-//instance_create_layer(x, y, "Instances", obj_card_request, loadData)
-show_debug_message(string(loadData))
+instance_create_layer(x, y, "Instances", obj_card_request, loadData)
+//show_debug_message(string(loadData))
 
 alarm[0] = alarmTiming
