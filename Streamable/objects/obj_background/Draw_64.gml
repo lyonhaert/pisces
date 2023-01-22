@@ -29,9 +29,10 @@ repeat(phases) {
 	}
 
 	if !mirror_phase {
-		draw_set_font(fnt_segoe);
 		draw_set_halign(fa_left);
 		draw_set_valign(fa_bottom);
+				
+		draw_set_font(fnt_segoe);
 
 		draw_set_alpha(0.85);
 		draw_set_color(c_black);

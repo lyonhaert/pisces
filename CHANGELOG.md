@@ -7,6 +7,7 @@
 - Default counters on a card have a label "+1/+1" if it's a creature card, "Loyalty" if it's a planeswalker card, and just generic "counters" for anything else. Simple, but a little awkward for the several frontface-creatue-backface-walker cards out there.
 
 
+
 # UNRELEASED
 - Added upside-down flip with shift+F. (No right-click menu entry yet)
 - Fixed bug where only the keyboard top row numbers could be used to preceed `D`, `M`, or `R` keybinds with an amount of cards to draw, mill, or scry (respectively). Now the numpad numbers work, too.

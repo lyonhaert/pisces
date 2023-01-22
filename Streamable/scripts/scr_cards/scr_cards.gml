@@ -75,7 +75,12 @@ function create_spawner(card_inst)
 
 function move_to_deck_top(card_inst)
 {
-	add_to_card_stack_beginning(card_inst, obj_deck);	
+	if obj_keyboard_dispatch.num_repeats > 1 {
+		add_to_card_stack_location(card_inst, obj_deck, obj_keyboard_dispatch.num_repeats - 1);
+		obj_keyboard_dispatch.num_repeats = 0
+	} else {
+		add_to_card_stack_beginning(card_inst, obj_deck);
+	}
 }
 
 function move_to_deck_bottom(card_inst)

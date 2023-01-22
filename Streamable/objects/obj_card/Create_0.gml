@@ -22,14 +22,11 @@ time_hovering = 0;
 offset_x = x;
 offset_y = y;
 
-//counters = 0;
 counters = {
-	"default": 2346,
-	"test1": 9,
-	"adsfasdf": 77
+	"default": 0,
 }
 
-countersOtherNames = ["adsfasdf", "test1"]
+countersOtherNames = []
 
 countersDefaultName = "counters"
 if cardinfo.type_lookup[$ "Creature"] {

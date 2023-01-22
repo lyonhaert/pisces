@@ -171,9 +171,9 @@ function obj_card_drawing() {
 		var cY = tapped ? tapy3 : untapy4
 		
 		if is_tapping {
-			var f = tapped ? 1 - tap_angle_percentage : tap_angle_percentage
-			cX = untapx4 + ((tapx3 - untapx4) * f)
-			cY = untapy4 + ((tapy3 - untapy4) * f)
+			var f = tap_angle_percentage
+			cX = lerp(untapx4, tapx3, f)
+			cY = lerp(untapy4, tapy3, f)
 		}
 
 		if counters[$ "default"] != 0 {
