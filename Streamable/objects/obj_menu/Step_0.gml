@@ -22,6 +22,8 @@ is_in = point_in_rectangle(
 	bbox_right, 
 	bbox_bottom) and id == obj_selector.lowest_object;
 
+var next_hovered = -1
+
 for (var i = 0; i < array_length(options); i++)
 {
 	if array_contains(dividers, i)
@@ -39,17 +41,8 @@ for (var i = 0; i < array_length(options); i++)
 		bounding_y_end) and is_in;
 		
 	if (in_rect) {
-		hovered = i;
+		next_hovered = i;
 		
-		if (i != prev_hovered)
-		{
-			options[hovered].onhover(owner, self)
-			
-			if prev_hovered != -1 {
-				options[prev_hovered].onunhover()
-			}
-		}
-
 		break;
 	}
 		
@@ -57,7 +50,16 @@ for (var i = 0; i < array_length(options); i++)
 	bounding_y_end += height;
 }
 
-
+hovered = next_hovered
+if prev_hovered != hovered {
+	if prev_hovered != -1 {
+		options[prev_hovered].onunhover()
+	}
+	
+	if hovered != -1 {
+		options[hovered].onhover(owner, self)
+	}
+}
 
 if is_in
 {
@@ -67,20 +69,17 @@ if is_in
 
 offset = floor(mean(offset, offset, offset, offset, next_offset));
 
-if mouse_check_button_released(mb_left)
-{
-	if (hovered == -1 or not is_in)
-	{
+scroll_alpha = mean(scroll_alpha, scroll_alpha, is_in);
+
+if mouse_check_button_released(mb_left) {
+	var lo = obj_selector.lowest_object
+	if lo == noone || lo.object_index != obj_menu {
 		ticker = 30;
 		clearing = true;
-	}
-	else
-	{
+	} else if hovered != -1 && is_in {
 		options[hovered].Perform(owner, self);
 		click_option = hovered;
 		click_point_x = mouse_x - bounding_x_start;
 		click_point_y = mouse_y - bounding_y_start;
 	}
 }
-
-scroll_alpha = mean(scroll_alpha, scroll_alpha, is_in);
