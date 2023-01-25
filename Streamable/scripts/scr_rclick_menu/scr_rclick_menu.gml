@@ -11,8 +11,6 @@ function RightClickMenu(_dividers = []) constructor
 		var max_height = 0;
 		var max_width = 0;
 		
-		draw_set_font(fnt_segoe);
-		
 		for (var i = 0; i < array_length(menu_options); i++)
 		{
 			var name_str = menu_options[i].name;
@@ -87,8 +85,15 @@ function RightClickSubMenu(_name, _submenu, _icon = spr_close, _hotkey = "") con
 	name = _name;
 	action = noop;
 	submenu = _submenu;
+	submenu_obj = noone
 	
 	onhover = function(owner, menu) {
+		if !instance_exists(submenu_obj) submenu_obj = noone
+		
+		show_debug_message("onHover " + name + " submenu is " + string(submenu_obj))
+
+		if submenu_obj != noone return;
+		
 		var create_x = menu.x + menu.width + menu.padding + menu.padding;
 		var create_y = menu.bounding_y_start - menu.padding;
 		submenu_obj = submenu.CreateMenu(
@@ -97,11 +102,19 @@ function RightClickSubMenu(_name, _submenu, _icon = spr_close, _hotkey = "") con
 			owner
 		);
 		
+		show_debug_message("onHover " + name + " created submenu " + string(submenu_obj))
+		
 		submenu_obj.depth = menu.depth - 1;
-	};
+	}
 	
 	onunhover = function() {
-		instance_destroy(submenu_obj);	
+		show_debug_message("onUnhover " + name + " submenu is " + string(submenu_obj))
+		if submenu_obj == noone return;
+		if obj_selector.lowest_object == submenu_obj return;
+		
+		show_debug_message("onUnhover " + name + " destroyed submenu " + string(submenu_obj))
+		instance_destroy(submenu_obj)
+		submenu_obj = noone		
 	}
 	
 	icon = _icon;
@@ -109,11 +122,13 @@ function RightClickSubMenu(_name, _submenu, _icon = spr_close, _hotkey = "") con
 	draw_color = c_white;
 	hotkey_same_color = true
 	
-	static Perform = function(owner) { 
+	static Perform = function(owner) {
+		/*
 		with (obj_menu)
 		{
 			clearing = true;
 			ticker = 30;
 		}
+		*/
 	}
 }

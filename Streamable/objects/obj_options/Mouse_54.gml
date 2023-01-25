@@ -1,4 +1,4 @@
-/// @description 
+/// @description Global Right MB Pressed
 if !position_empty(mouse_x, mouse_y) return;
 
 clear_all_menus();

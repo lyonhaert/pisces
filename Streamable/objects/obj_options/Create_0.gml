@@ -1,6 +1,12 @@
 /// @description Options for the card game.
 load_settings_ini();
 
+var options2 = new RightClickMenuOption("Options2", open_options, noop, noop, spr_gear, "O")
+var opt2menu = new RightClickMenu()
+opt2menu.AddOption(options2)
+
+var opt2sub = new RightClickSubMenu("Opt2", opt2menu, spr_gear, ">")
+
 var roll2 = new RightClickMenuOption("Roll d2", roll_dice(2, spr_d2_logo), noop, noop, spr_d2);
 var roll4 = new RightClickMenuOption("Roll d4", roll_dice(4, spr_d4_logo), noop, noop, spr_d4);
 var roll6 = new RightClickMenuOption("Roll d6", roll_dice(6, spr_d6_logo), noop, noop, spr_d6);
@@ -9,6 +15,7 @@ var roll10 = new RightClickMenuOption("Roll d10", roll_dice(10, spr_d10_logo), n
 var roll12 = new RightClickMenuOption("Roll d12", roll_dice(12, spr_d12_logo), noop, noop, spr_d12);
 var roll20 = new RightClickMenuOption("Roll d20", roll_dice(20, spr_d20_logo), noop, noop, spr_d20);
 roll_menu = new RightClickMenu();
+roll_menu.AddOption(opt2sub)
 roll_menu.AddOption(roll2);
 roll_menu.AddOption(roll6);
 roll_menu.AddOption(roll20);
