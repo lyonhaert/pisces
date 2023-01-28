@@ -53,7 +53,6 @@ my_submenu.AddOption(to_graveyard);
 my_submenu.AddOption(to_exile);
 my_submenu.AddOption(to_command);
 
-function(){rcMenuBindSim("")}
 var tap = new RightClickMenuOption("Tap", function(){rcMenuBindSim("card_tap")}, noop, noop, spr_tap, "T");
 var flip = new RightClickMenuOption("Flip", function(){rcMenuBindSim("card_flip")}, noop, noop, spr_flip, "F");
 var send_to = new RightClickSubMenu("Send To", my_submenu, spr_envelope, ">");
