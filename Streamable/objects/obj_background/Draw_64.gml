@@ -1,6 +1,10 @@
 /// @description Draw the background
 var txtX = 10;
 var txtY = 10;
+
+var numrepeats = obj_keyboard_dispatch.num_repeats
+var txtKBDRepeats = numrepeats > 0 ? string(numrepeats) : ""
+
 var txtHand = "Hand: " + string(array_length(obj_hand.stack_list));
 var txtDeck = "Deck: " + string(array_length(obj_deck.stack_list));
 
@@ -29,18 +33,15 @@ repeat(phases) {
 	}
 
 	if !mirror_phase {
+		draw_set_font(fnt_segoe);
 		draw_set_halign(fa_left);
+		
+		draw_set_valign(fa_top);
+		
+		draw_shadowedText(txtKBDRepeats, txtX, txtY)
 		draw_set_valign(fa_bottom);
 				
-		draw_set_font(fnt_segoe);
-
-		draw_set_alpha(0.85);
-		draw_set_color(c_black);
-		draw_text(txtX + 2, topLeftHandY + 2, txtHand);
-
-		draw_set_alpha(1);
-		draw_set_color(c_white);
-		draw_text(txtX, topLeftHandY, txtHand);
+		draw_shadowedText(txtHand, txtX, topLeftHandY)
 	}
 	
 	if mirror_phase surface_reset_target()

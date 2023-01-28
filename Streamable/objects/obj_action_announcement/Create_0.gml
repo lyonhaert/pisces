@@ -1,4 +1,5 @@
 ticker = total_time
+age_ms = 0
 image_alpha = 0
 
 start_y = y

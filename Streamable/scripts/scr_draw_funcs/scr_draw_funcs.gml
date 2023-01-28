@@ -73,3 +73,13 @@ function skew_points_around_center(skew_x, skew_y, width, height, point_struct)
 		y4 -= ycoord_diff_dist - y_offset * depth_ratio_l;
 	}
 }
+
+function draw_shadowedText(text, textX, textY, shadowXYOffset = 2, shadowAlpha = 0.85, shadowColor = c_black, normAlpha = 1, normColor = c_white) {
+	draw_set_alpha(shadowAlpha)
+	draw_set_color(shadowColor)
+	draw_text(textX + shadowXYOffset, textY + shadowXYOffset, text)
+	
+	draw_set_alpha(normAlpha)
+	draw_set_color(normColor)
+	draw_text(textX, textY, text)
+}

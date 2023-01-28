@@ -4,7 +4,7 @@ draw_set_halign(fa_center)
 
 var draw_x = x
 var draw_y = y
-var draw_string = "Deck shuffled!"
+var draw_string = action_msg
 
 draw_set_alpha(image_alpha)
 draw_set_color(c_black)

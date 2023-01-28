@@ -16,3 +16,16 @@ function find_message_subscribers(message_name) {
 	
 	return subscribers;
 }
+
+function announce_action(msg) {
+	with (obj_action_announcement) {
+		//janky solution to prevent multiple duplicates from the same keypress
+		// because of how obj_keyboard_dispatch's num_repeats works currently
+		if action_msg == msg && age_ms < 500 {return}
+	}
+	
+	show_debug_message("account_action: " + msg)
+	instance_create_layer(room_width / 2, room_height / 4, "Instances", obj_action_announcement, {
+		action_msg: msg
+	})
+}

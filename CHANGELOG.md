@@ -1,11 +1,10 @@
 # newnew
-- Simple "Deck shuffled!" notification when you shuffle.
+- Simple "Deck shuffled!" notification when you shuffle, plus messages for various other actions. These are also drawn to camera mirror so opponents can see you shuffled or which zone cards were moved to.
 - Simple deck and hand counts in lower left of background (not mirrored to virtual cam -- if your opponents want to know, they can ask).
 - Update Note can now set the note to multiple cards if you've selected more than one. Since the Note modal starts off with the current note of the card you right-click, you can also use this to 'copy' the note to other selected cards. *Example, select a card that has a 'Token Copy' note along with other cards that you want that note on -> right-click the first one that has the note -> click Ok on the modal -> now they all have 'Token Copy' note.
 - Improved input handling for Scryfall search screen so that one can do most earch parameters. For example, "is:token t:dragon power=5".
 - Counter display sticks to the lower-left corner (display-wise) of a card, even when tapped.
 - Default counters on a card have a label "+1/+1" if it's a creature card, "Loyalty" if it's a planeswalker card, and just generic "counters" for anything else. Simple, but a little awkward for the several frontface-creatue-backface-walker cards out there.
-
 
 
 # UNRELEASED

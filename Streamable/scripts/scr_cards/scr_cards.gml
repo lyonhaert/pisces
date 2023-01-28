@@ -12,16 +12,16 @@ function change_card_counters(card_inst, type = "default", num = 1) {
 	card_inst.counters[$ type] = max(0, (card_inst.counters[$ type] ?? 0) + num)
 }
 
-function tap_card(card_inst) 
-{
-	if (!card_inst.is_tapping)
-	{
-		card_inst.is_tapping = true;	
-	}
-	else
-	{
-		card_inst.tapped = !card_inst.tapped;
+function tap_card(card_inst) {
+	if (!card_inst.is_tapping) {
+		card_inst.is_tapping = true
+	} else {
+		card_inst.tapped = !card_inst.tapped
 		card_inst.is_tapping = obj_options.tap_length - card_inst.is_tapping
+	}
+	
+	if obj_options.deselect_after_tap {
+		card_inst.is_selected = false
 	}
 }
 
@@ -73,14 +73,9 @@ function create_spawner(card_inst)
 	});
 }
 
-function move_to_deck_top(card_inst)
+function move_to_deck_top(card_inst, from_top = 0)
 {
-	if obj_keyboard_dispatch.num_repeats > 1 {
-		add_to_card_stack_location(card_inst, obj_deck, obj_keyboard_dispatch.num_repeats - 1);
-		obj_keyboard_dispatch.num_repeats = 0
-	} else {
-		add_to_card_stack_beginning(card_inst, obj_deck);
-	}
+	add_to_card_stack_beginning(card_inst, obj_deck);
 }
 
 function move_to_deck_bottom(card_inst)
@@ -223,5 +218,5 @@ function card_destroy(card_inst)
 function shuffle_deck() {
 	array_shuffle(obj_deck.stack_list)
 	
-	instance_create_layer(room_width / 2, room_height / 4, "Instances", obj_deck_shuffled)
+	announce_action("Deck shuffled!")
 }

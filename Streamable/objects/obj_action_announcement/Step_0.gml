@@ -1,4 +1,5 @@
 ticker = max(ticker - obj_options.since_last, -1)
+age_ms += delta_time / 1000
 
 if ticker <= 0 {
 	instance_destroy()

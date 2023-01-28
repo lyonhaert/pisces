@@ -40,12 +40,12 @@ counterSize = 20;
 my_submenu = new RightClickMenu();
 my_partsmenu = new RightClickMenu();
 
-var to_hand = new RightClickMenuOption("Hand", move_to_hand, noop, noop, spr_hand, "H");
-var to_top = new RightClickMenuOption("Top of Library", move_to_deck_top, noop, noop, spr_book, "J");
-var to_bottom = new RightClickMenuOption("Bottom of Library", move_to_deck_bottom, noop, noop, spr_book_bookmark, "K");
-var to_graveyard = new RightClickMenuOption("Graveyard", move_to_graveyard, noop, noop, spr_skull_crossbones, "G");
-var to_exile = new RightClickMenuOption("Exile", move_to_exile, noop, noop, spr_exile, "E");
-var to_command = new RightClickMenuOption("Command Zone", move_to_command, noop, noop, spr_crown, "C");
+var to_hand = new RightClickMenuOption("Hand", function(){rcMenuBindSim("move_hand")}, noop, noop, spr_hand, "H");
+var to_top = new RightClickMenuOption("Top of Library", function(){rcMenuBindSim("move_top_deck")}, noop, noop, spr_book, "J");
+var to_bottom = new RightClickMenuOption("Bottom of Library", function(){rcMenuBindSim("move_bottom_deck")}, noop, noop, spr_book_bookmark, "K");
+var to_graveyard = new RightClickMenuOption("Graveyard", function(){rcMenuBindSim("move_graveyard")}, noop, noop, spr_skull_crossbones, "G");
+var to_exile = new RightClickMenuOption("Exile", function(){rcMenuBindSim("move_exile")}, noop, noop, spr_exile, "E");
+var to_command = new RightClickMenuOption("Command Zone", function(){rcMenuBindSim("move_command_zone")}, noop, noop, spr_crown, "C");
 my_submenu.AddOption(to_hand);
 my_submenu.AddOption(to_top);
 my_submenu.AddOption(to_bottom);
@@ -53,16 +53,16 @@ my_submenu.AddOption(to_graveyard);
 my_submenu.AddOption(to_exile);
 my_submenu.AddOption(to_command);
 
-
-var tap = new RightClickMenuOption("Tap", tap_card, noop, noop, spr_tap, "T");
-var flip = new RightClickMenuOption("Flip", flip_card, noop, noop, spr_flip, "F");
+function(){rcMenuBindSim("")}
+var tap = new RightClickMenuOption("Tap", function(){rcMenuBindSim("card_tap")}, noop, noop, spr_tap, "T");
+var flip = new RightClickMenuOption("Flip", function(){rcMenuBindSim("card_flip")}, noop, noop, spr_flip, "F");
 var send_to = new RightClickSubMenu("Send To", my_submenu, spr_envelope, ">");
-var duplicate = new RightClickMenuOption("Duplicate", duplicate_card, noop, noop, spr_copy, "Z");
+var duplicate = new RightClickMenuOption("Duplicate", function(){rcMenuBindSim("card_clone")}, noop, noop, spr_copy, "Z");
 var note = new RightClickMenuOption("Update Note", update_note, noop, noop, spr_note_sticky);
 //var spawn = new RightClickMenuOption("Make Spawner", create_spawner, noop, noop);
-var add_counter = new RightClickMenuOption("Add Counter", add_card_counters, noop, noop, spr_counter_add, "+");
-var rem_counter = new RightClickMenuOption("Remove Counter", sub_card_counters, noop, noop, spr_counter_rem, "-");
-var destroy = new RightClickMenuOption("Delete", card_destroy, noop, noop, spr_trash, "X");
+var add_counter = new RightClickMenuOption("Add Counter", function(){rcMenuBindSim("counter_increment")}, noop, noop, spr_counter_add, "+");
+var rem_counter = new RightClickMenuOption("Remove Counter", function(){rcMenuBindSim("counter_decrement")}, noop, noop, spr_counter_rem, "-");
+var destroy = new RightClickMenuOption("Delete", function(){rcMenuBindSim("card_delete")}, noop, noop, spr_trash, "X");
 destroy.draw_color = c_red;
 
 my_menu = new RightClickMenu();
@@ -106,10 +106,10 @@ owning_canvas = noone;
 
 save_struct = undefined;
 
-default_subbed_events = {
+default_subbed_events = {}/*
 	"counter_increment": 1,
 	"counter_decrement": 2
-};
+};*/
 
 during_drag_events = {
 	"coalesce": 0
