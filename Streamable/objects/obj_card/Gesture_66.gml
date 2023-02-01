@@ -3,6 +3,7 @@ if is_selected and obj_selector.lowest_object != noone and obj_selector.lowest_o
 {
 	clear_menus(self);
 	is_dragged = true;
+	drag_start_zone = parent_stack;
 	offset_drag = true;
 	
 	offset_x = x;
@@ -26,11 +27,12 @@ else if is_hovering
 {
 	clear_menus(self);
 	is_dragged = true;
+	drag_start_zone = parent_stack;
 	offset_drag = false;
 
 	next_x = mouse_x;
 	next_y = mouse_y;
-
+	
 	remove_from_card_stack(self);
 	height_priority = next_height_priority()
 	show_debug_message("adding to Dragging: " + string(id) + " (" + name + ")");

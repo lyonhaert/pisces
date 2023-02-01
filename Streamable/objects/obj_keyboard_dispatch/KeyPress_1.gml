@@ -19,6 +19,7 @@ if lc >= 48 && lc <= 57 {
 	num_repeats *= 10
 	num_repeats += lc - 48
 	num_repeats = min(1000000, num_repeats)
+	numinput_countdown_ms = numinput_clear_time_ms
 	return
 }
 
@@ -28,9 +29,6 @@ num_repeats = 0
 
 // Find the event:
 var event_def = events[$ pressed_key]
-if event_def == undefined {
-	return
-}
+if event_def == undefined return;
 
 evHandler_begin_handling(event_def, num_times, mod_shift, mod_ctrl)
-

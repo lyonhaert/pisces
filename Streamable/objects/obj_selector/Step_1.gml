@@ -10,8 +10,17 @@ if !f6pressed && keyboard_check(vk_f6)
 		return
 	}
 	
-	show_debug_message("lowest_object: " + object_get_name(lowest_object.object_index) + " " + string(lowest_object))
-	
+	var objname = object_get_name(lowest_object.object_index)
+	show_debug_message("lowest_object: " + objname + " " + string(lowest_object))
+	if (lowest_object.object_index == obj_card) {
+		with (lowest_object) {
+			show_debug_message(" is_selected:" + string(is_selected) +
+				" is_hovering:" + string(is_hovering) +
+				" is_dragged:" + string(is_dragged) +
+				" has current_menu:" + string(current_menu != noone))
+		}
+	}
+
 	/*
 	var _list2 = ds_list_create();
 	var _num = collision_point_list(mouse_x, mouse_y, all, true, false, _list2, false);

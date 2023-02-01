@@ -164,7 +164,28 @@ function obj_card_drawing() {
 			///reset for the other menus
 			draw_set_alpha(1.0);
 		}
+		
+		if is_token {
+			var txt = "TOKEN"
+			var txtW = string_width(txt)
+			var txtWhalf = txtW / 2
+			var o = 10
+			var o2 = 20
+			
+			var tX = lerp(x1, x3, 0.5)
+			var tY = lerp(y1, y3, 0.5)
 
+			draw_set_valign(fa_center)
+			draw_set_halign(fa_center)
+			
+			draw_set_alpha(is_hovering ? 0.8 : 0.6)
+			
+			draw_roundrect_color_ext(tX - txtWhalf - o, tY - o2, tX + txtWhalf + o, tY + o2, o, o, c_black, c_black, false)
+			
+			draw_set_alpha(is_hovering ? 1 : 0.8)
+			draw_set_font(fnt_segoe)
+			draw_text_transformed(tX, tY, txt, 1, 1, tap_angle_percentage)
+		}
 
 		draw_set_font(fnt_segoe)
 		var cX = tapped ? tapx3 : untapx4

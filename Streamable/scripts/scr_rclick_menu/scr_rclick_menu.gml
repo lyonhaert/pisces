@@ -23,7 +23,7 @@ function RightClickMenu(_dividers = []) constructor
 		max_width += 80;
 		max_height = max(max_height, 60);
 		
-		return instance_create_layer(
+		var menu = instance_create_layer(
 				_x, 
 				draw_y, 
 				"UI", 
@@ -35,6 +35,8 @@ function RightClickMenu(_dividers = []) constructor
 					height: max_height,
 					width: max_width
 				});
+		show_debug_message("created menu " + string(menu.id) + " " + json_stringify(_owner));
+		return menu;
 	}
 	
 	static AddSeparator = function()
@@ -69,13 +71,12 @@ function RightClickMenuOption(_name, _action, _onhover, _onunhover, _icon = spr_
 	
 	static Perform = function(owner)
 	{
+		action(owner)
 		with (obj_menu)
 		{
-			clearing = true;
 			ticker = 30;
+			clearing = true;
 		}
-		
-		action(owner)
 	}
 }
 

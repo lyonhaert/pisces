@@ -1,5 +1,3 @@
-
-
 function KeybindBuilder(_keybinds, _events) constructor {
 	keybinds = _keybinds
 	events = _events
@@ -17,6 +15,17 @@ function KeybindHandler(_name, _eventHandler, _cardFilters) constructor {
 	cardFilters = _cardFilters ?? emptyFilter
 }
 
+function rcMenuBindSim(name) {
+	with (obj_keyboard_dispatch) {
+		num_times = max(1, num_repeats)
+		num_repeats = 0
+
+		var code = keybinds[$ name]
+		var event_def = events[$ code]
+		evHandler_begin_handling(event_def, num_times, mod_shift, mod_ctrl)
+	}
+}
+
 function evHandler_begin_handling(event_def, num_repeats, mod_shift, mod_ctrl) {
 	switch (event_def.name) {
 		case "coalesce":
@@ -30,6 +39,11 @@ function evHandler_begin_handling(event_def, num_repeats, mod_shift, mod_ctrl) {
 		
 		default:
 			var cardInstances = find_selected_cards(event_def.cardFilters)
+			var cardnames = []
+			array_foreach(cardInstances, method({cn: cardnames}, function(cardInst) {
+				array_push(cn, string(cardInst.name) + " (" + string(cardInst.id) + ")")
+			}))
+			show_debug_message("cardInstances: " + json_stringify(cardnames))
 			if array_length(cardInstances) > 0 {
 				//array_foreach(cardInstances, clear_menus)
 				event_def.eventHandler(cardInstances, num_repeats, mod_shift, mod_ctrl)
@@ -66,10 +80,11 @@ function handle_user_event_based(event_def, num_repeats) {
 function find_selected_cards(filters) {
 	var cards = []
 	with (obj_card) {
-		if filters[$ "altSelect"] ?? false {
-			if !is_hovering && !is_selected continue;
+		if filters[$ "flipSelect"] ?? false {
+			if !is_hovering && current_menu == noone && !is_selected && !is_dragged continue;
 		} else {
-			if !is_hovering && (!is_selected || is_dragged) continue;
+			if is_dragged continue;
+			if !is_hovering && current_menu == noone && !is_selected continue;
 		}
 		
 		if (filters[$ "nonHiddenZone"] ?? false) &&
@@ -141,11 +156,14 @@ function evHandler_move_hand(cardInstances) {
 }
 
 function evHandler_move_top_deck(cardInstances, from_top) {
-	if from_top > 1 && array_length(cardInstances) > 1 return;
+	if from_top > 1 && array_length(cardInstances) > 1 {
+		announce_action("Can only tuck one card\nto #" + string(from_top) + " from top of deck", true)
+		return
+	}
 	
 	if from_top > 1 {
 		add_to_card_stack_location(cardInstances[0], obj_deck, from_top - 1);
-		announce_action("Moved to #" + string(from_top) + " from top of deck" )
+		announce_action("Moved to #" + string(from_top) + " from top of deck")
 	} else {
 		array_foreach(cardInstances, move_to_deck_top)
 		announce_action(string(array_length(cardInstances)) + " moved to top of deck")
@@ -171,8 +189,6 @@ function evHandler_card_flip(cardInstances, unused_count, mod_shift) {
 	array_foreach(cardInstances, mod_shift ? toggle_upsidedown_card : flip_card)
 }
 
-function rcMenuBindSim(name) {
-	var code = obj_keyboard_dispatch.keybinds[$ name]
-	keyboard_key_press(code)
-	keyboard_key_release(code)
+function evHandler_card_token(cardInstances) {
+	array_foreach(cardInstances, card_toggle_token)
 }

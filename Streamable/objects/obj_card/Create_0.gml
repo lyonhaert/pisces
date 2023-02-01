@@ -1,4 +1,5 @@
 offset_drag = false;
+drag_start_zone = noone;
 
 is_tapping = false;
 tapped = false;
@@ -40,7 +41,10 @@ counterSize = 20;
 my_submenu = new RightClickMenu();
 my_partsmenu = new RightClickMenu();
 
-var to_hand = new RightClickMenuOption("Hand", function(){rcMenuBindSim("move_hand")}, noop, noop, spr_hand, "H");
+var rcto_hand = function() {
+	rcMenuBindSim("move_hand")
+}
+var to_hand = new RightClickMenuOption("Hand", rcto_hand, noop, noop, spr_hand, "H");
 var to_top = new RightClickMenuOption("Top of Library", function(){rcMenuBindSim("move_top_deck")}, noop, noop, spr_book, "J");
 var to_bottom = new RightClickMenuOption("Bottom of Library", function(){rcMenuBindSim("move_bottom_deck")}, noop, noop, spr_book_bookmark, "K");
 var to_graveyard = new RightClickMenuOption("Graveyard", function(){rcMenuBindSim("move_graveyard")}, noop, noop, spr_skull_crossbones, "G");
@@ -61,6 +65,7 @@ var note = new RightClickMenuOption("Update Note", update_note, noop, noop, spr_
 //var spawn = new RightClickMenuOption("Make Spawner", create_spawner, noop, noop);
 var add_counter = new RightClickMenuOption("Add Counter", function(){rcMenuBindSim("counter_increment")}, noop, noop, spr_counter_add, "+");
 var rem_counter = new RightClickMenuOption("Remove Counter", function(){rcMenuBindSim("counter_decrement")}, noop, noop, spr_counter_rem, "-");
+var toggle_token = new RightClickMenuOption("Toggle Token", function(){rcMenuBindSim("card_token")}, noop, noop, spr_shapes, "B");
 var destroy = new RightClickMenuOption("Delete", function(){rcMenuBindSim("card_delete")}, noop, noop, spr_trash, "X");
 destroy.draw_color = c_red;
 
@@ -71,15 +76,21 @@ my_menu.AddSeparator();
 my_menu.AddOption(duplicate);
 
 
-if array_length(all_parts) > 0
-{
-	for (var i = 0; i < array_length(all_parts); i++)
-	{
+if array_length(all_parts) > 0 {
+	for (var i = 0; i < array_length(all_parts); i++) {
 		var curr_card = all_parts[i];
 		
-		var func = method(curr_card, function(card_inst)
-		{
-			instance_create_layer(card_inst.x + card_inst.sprite_width / 9, card_inst.y + card_inst.sprite_height / 9, "Instances", obj_id_request, { "req": self.internal_id, "spawn_number": 1 })
+		var func = method(curr_card, function(card_inst) {
+			instance_create_layer(
+				card_inst.x + card_inst.sprite_width / 9,
+				card_inst.y + card_inst.sprite_height / 9,
+				"Instances",
+				obj_id_request,
+				{
+					"req": self.internal_id,
+					"spawn_number": 1,
+					"as_tokens": true
+				})
 		})
 		var menu_opt = new RightClickMenuOption(curr_card.internal_name, func, noop, noop, spr_shapes);
 		my_partsmenu.AddOption(menu_opt)
@@ -98,10 +109,13 @@ my_menu.AddOption(rem_counter);
 //my_menu.AddOption(spawn);
 my_menu.AddSeparator();
 my_menu.AddOption(send_to);
+my_menu.AddOption(toggle_token);
 my_menu.AddOption(destroy);
 
 height_priority = next_height_priority();
 owning_canvas = noone;
+
+current_menu = noone;
 
 save_struct = undefined;
 

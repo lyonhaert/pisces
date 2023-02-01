@@ -1,5 +1,9 @@
 visible = !(bbox_left > room_width || bbox_right < 0 || bbox_bottom < 0 || bbox_top > room_height)
 
+if (current_menu != noone && !instance_exists(current_menu)) {
+	current_menu = noone
+}
+
 // Motion
 var total_inertia = obj_options.default_inertia;
 var total_scaling = obj_options.default_scaling;

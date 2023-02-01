@@ -25,6 +25,10 @@ function tap_card(card_inst) {
 	}
 }
 
+function card_toggle_token(card_inst) {
+	card_inst.is_token = !card_inst.is_token
+}
+
 function flip_card(card_inst)
 {
 	card_inst.is_flipped = !card_inst.is_flipped;
@@ -56,6 +60,7 @@ function duplicate_card(card_inst)
 		"is_upsidedown": card_inst.is_upsidedown,
 		"is_revealed": card_inst.is_revealed,
 		"is_flipped": card_inst.is_flipped,
+		"is_token": true,
 		"all_parts": card_inst.all_parts,
 		"cardinfo": struct_cloneSimple(card_inst.cardinfo)
 	});
@@ -113,12 +118,18 @@ function add_to_card_stack_beginning(card_inst, stack_inst) {
 
 function add_to_card_stack_location(card_inst, stack_inst, pos = -1)
 {
+	if card_inst.is_token {
+		card_destroy(card_inst)
+		return
+	}
+	
+	var old_stack = max(card_inst.drag_start_zone, card_inst.parent_stack)
+	
 	remove_from_card_stack(card_inst);
 	
 	card_inst.parent_stack = stack_inst;
 
-	if pos == -1
-	{
+	if pos == -1 {
 		pos = array_length(stack_inst.stack_list);	
 	}
 	
@@ -131,6 +142,7 @@ function add_to_card_stack_location(card_inst, stack_inst, pos = -1)
 
 	// other things to reset:
 	card_inst.is_upsidedown = false;
+	card_inst.drag_start_zone = noone;
 	
 	if stack_inst.hidden_zone {
 		delete card_inst.counters
@@ -140,7 +152,7 @@ function add_to_card_stack_location(card_inst, stack_inst, pos = -1)
 
 	if stack_inst.object_index == obj_exile
 		&& card_inst.is_flipped
-		&& keyboard_check(vk_shift)
+		&& (obj_keyboard_dispatch.mod_shift || old_stack == obj_hand)
 	{
 		card_inst.sticky_is_revealed = true;
 		card_inst.is_revealed = false;
@@ -163,7 +175,6 @@ function remove_from_card_stack(card_inst) {
 		array_delete(card_inst.parent_stack.stack_list, index, 1);
 		card_inst.parent_stack = noone;
 		
-		show_debug_message("add to battlefield");
 		layer_add_instance("Battlefield", card_inst);
 		obj_height_manager.height_modified = true;
 		
