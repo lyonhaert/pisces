@@ -26,7 +26,7 @@ var next_hovered = -1
 
 for (var i = 0; i < array_length(options); i++)
 {
-	if array_contains(dividers, i)
+	if array_containsEx(dividers, i)
 	{
 		bounding_y_start += divider_height;
 		bounding_y_end += divider_height;
