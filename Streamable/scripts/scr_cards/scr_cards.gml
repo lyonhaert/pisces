@@ -231,3 +231,17 @@ function shuffle_deck() {
 	
 	announce_action("Deck shuffled!")
 }
+
+function untap_all_new_turn() {
+	//if instance_exists(obj_card_annotation) return;
+
+	with (obj_card)	{
+		if tapped {
+			is_tapping = true
+		}
+	}
+
+	if obj_options.draw_on_turn && array_length(obj_deck.stack_list) > 0 {
+		add_to_card_stack(obj_deck.stack_list[0], obj_hand)
+	}
+}

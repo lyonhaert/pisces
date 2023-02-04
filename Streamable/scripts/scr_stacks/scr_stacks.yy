@@ -1,9 +1,9 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "swap_stack_visibility",
-  "isDnD": false,
+  "name": "scr_stacks",
   "isCompatibility": false,
+  "isDnD": false,
   "parent": {
     "name": "Game",
     "path": "folders/Scripts/Game.yy",

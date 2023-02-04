@@ -29,12 +29,15 @@ function rcMenuBindSim(name) {
 function evHandler_begin_handling(event_def, num_repeats, mod_shift, mod_ctrl) {
 	switch (event_def.name) {
 		case "coalesce":
-			handle_user_event_based(event_def, 1)
-			break
+			num_repeats = 1
 		case "draw":
 		case "mill":
 		case "scry":
 			handle_user_event_based(event_def, num_repeats)
+			break
+			
+		case "deck_shuffle":
+			event_def.eventHandler()
 			break
 		
 		default:

@@ -30,11 +30,14 @@ nonHiddenFilter = {nonHiddenZone: true}
 flipSelectFilter = {flipSelect: true}
 emptyFilter = {}
 
-//this group still uses the user event + subscriber search model
+//this group of 4 still uses the user event + subscriber search model
+builder.AddBind("coalesce", ord("Q"))
 builder.AddBind("draw", ord("D"))
 builder.AddBind("mill", ord("M"))
 builder.AddBind("scry", ord("R"))
-builder.AddBind("coalesce", ord("Q"))
+
+builder.AddBind("deck_shuffle", ord("S"), shuffle_deck)
+builder.AddBind("untap_all_new_turn", ord("N"), untap_all_new_turn)
 
 keyboard_set_map(vk_EqualPlus, vk_add)
 keyboard_set_map(vk_Minus, vk_subtract)
