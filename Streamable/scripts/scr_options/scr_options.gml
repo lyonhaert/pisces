@@ -1,23 +1,3 @@
-// Script assets have changed for v2.3.0 see
-// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
-function ini_b2str(flag) { return flag ? "true" : "false"; }
-
-function load_settings_ini() {
-	ini_open("settings.ini");
-	obj_options.draw_on_turn = bool(ini_read_string("behavior", "draw_on_turn", obj_options.draw_on_turn));
-	obj_options.deselect_after_tap = bool(ini_read_string("behavior", "deselect_after_tap", obj_options.deselect_after_tap));
-	obj_options.deselect_after_drag = bool(ini_read_string("behavior", "deselect_after_drag", obj_options.deselect_after_drag));
-	ini_close();
-}
-
-function save_settings_ini() {
-	ini_open("settings.ini");
-	ini_write_string("behavior", "draw_on_turn", ini_b2str(obj_options.draw_on_turn));
-	ini_write_string("behavior", "deselect_after_tap", ini_b2str(obj_options.deselect_after_tap));
-	ini_write_string("behavior", "deselect_after_drag", ini_b2str(obj_options.deselect_after_drag));
-	ini_close();
-}
-
 function struct_CopyNamesIfExists(fromStruct, toStruct, names) {
 	if is_string(names) names = [names]
 	for (var i = 0; i < array_length(names); i++) {
@@ -42,15 +22,7 @@ function decrease_game_size(options_inst)
 
 function load_decklist(options_inst)
 {
-	var file = get_open_filename("decklists (.txt)|*.txt", "deck.txt");
-	if file == "" return;
-
-	var file_id = file_text_open_read(file);
-	if file_id == -1 return;
-	
-	instance_create_layer(room_width / 2, room_height / 2, "Instances", obj_deck_loader, {
-		file_id: file_id
-	})
+	instance_create_layer(room_width / 2, room_height / 2, "Instances", obj_deck_loader)
 }
 
 function load_background(options_inst)

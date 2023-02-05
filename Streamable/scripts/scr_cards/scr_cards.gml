@@ -227,7 +227,7 @@ function card_destroy(card_inst)
 }
 
 function shuffle_deck() {
-	array_shuffle(obj_deck.stack_list)
+	array_shuffleEx(obj_deck.stack_list)
 	
 	announce_action("Deck shuffled!")
 }

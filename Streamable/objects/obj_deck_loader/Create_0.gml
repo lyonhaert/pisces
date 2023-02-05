@@ -3,6 +3,13 @@ var actualStepRate = min(game_get_speed(gamespeed_fps), display_get_frequency())
 
 alarmTiming = actualStepRate / 10 //10 per second
 
+var file = get_open_filename("decklists (.txt)|*.txt", "deck.txt")
+show_debug_message("selected file: " + file)
+if file == "" {
+	instance_destroy()
+}
+
+var file_id = file_text_open_read(file)
 if file_id == -1 {
 	instance_destroy()
 }

@@ -9,15 +9,18 @@ with (obj_text_field) {
 	}
 }
 
-var pressed_key = string(keyboard_lastkey)
-//show_debug_message("pressed_key: " + pressed_key + " -- misc: " + chr(vk_EqualPlus) + chr(vk_numpad0) + chr(vk_numpad9))
+var lk = keyboard_lastkey
+var pressed_key = string(lk)
+show_debug_message("keyboard_lastkey: " + pressed_key + "; keyboard_lastchar: " + keyboard_lastchar + " ord: " + string(ord(keyboard_lastchar)))
 
 // Key is 0-9:
-var lc = ord(keyboard_lastchar)
+if lk > 95 && lk < 106 {
+	lk -= 48
+}
 
-if lc >= 48 && lc <= 57 {
+if lk > 47 && lk < 58 {
 	num_repeats *= 10
-	num_repeats += lc - 48
+	num_repeats += lk - 48
 	num_repeats = min(1000000, num_repeats)
 	numinput_countdown_ms = numinput_clear_time_ms
 	return

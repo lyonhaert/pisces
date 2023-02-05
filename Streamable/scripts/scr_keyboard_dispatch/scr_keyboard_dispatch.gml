@@ -37,6 +37,7 @@ function evHandler_begin_handling(event_def, num_repeats, mod_shift, mod_ctrl) {
 			break
 			
 		case "deck_shuffle":
+		case "untap_all_new_turn":
 			event_def.eventHandler()
 			break
 		

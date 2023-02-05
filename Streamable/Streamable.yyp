@@ -61,6 +61,7 @@
     {"id":{"name":"fnt_beleren_large","path":"fonts/fnt_beleren_large/fnt_beleren_large.yy",},"order":3,},
     {"id":{"name":"obj_id_request","path":"objects/obj_id_request/obj_id_request.yy",},"order":12,},
     {"id":{"name":"fnt_beleren","path":"fonts/fnt_beleren/fnt_beleren.yy",},"order":0,},
+    {"id":{"name":"scr_options_settingsfile","path":"scripts/scr_options_settingsfile/scr_options_settingsfile.yy",},"order":0,},
     {"id":{"name":"fnt_beleren_small","path":"fonts/fnt_beleren_small/fnt_beleren_small.yy",},"order":2,},
     {"id":{"name":"scr_keyboard_dispatch","path":"scripts/scr_keyboard_dispatch/scr_keyboard_dispatch.yy",},"order":11,},
     {"id":{"name":"spr_load","path":"sprites/spr_load/spr_load.yy",},"order":36,},

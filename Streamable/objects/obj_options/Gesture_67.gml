@@ -12,8 +12,10 @@ with (obj_card)
 	y = next_y;
 }
 
+/*
 with (obj_background)
 {
 	offset_x = mouse_x - event_data[? "rawstartposX"]
 	offset_y = mouse_y - event_data[? "rawstartposY"]
 }
+*/
