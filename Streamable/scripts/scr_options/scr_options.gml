@@ -255,3 +255,9 @@ function load_state(options_inst)
 		}
 	}
 }
+
+function clearGameObjects() {
+	with (obj_card) {
+		instance_destroy()
+	}
+}

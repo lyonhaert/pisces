@@ -118,7 +118,7 @@ function add_to_card_stack_beginning(card_inst, stack_inst) {
 
 function add_to_card_stack_location(card_inst, stack_inst, pos = -1)
 {
-	if card_inst.is_token {
+	if card_inst.is_token && !obj_options.tokens_exist_in_zones {
 		card_destroy(card_inst)
 		return
 	}

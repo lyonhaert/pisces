@@ -57,6 +57,7 @@ Another thing is some of these have *N* in the action. What that means is you ca
 |Delete cards (they're *gone*)|`X`|
 |Send cards to Hand|`H`|
 |Send cards to top of Deck|`J`|
+|Send a card to *N*th from top of Deck|numerics then `J`|
 |Send cards to bottom of Deck|`K`|
 |Send cards to Graveyard|`G`|
 |Send cards to Exile|`E`|

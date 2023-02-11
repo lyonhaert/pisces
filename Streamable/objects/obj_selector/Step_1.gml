@@ -1,8 +1,7 @@
 /// @description Find the lowest object.
 lowest_object = lowest_at_point(mouse_x, mouse_y);
 
-if !f6pressed && keyboard_check(vk_f6)
-{
+if !f6pressed && keyboard_check(vk_f6) {
 	f6pressed = true;
 	
 	if lowest_object == noone {
@@ -18,6 +17,13 @@ if !f6pressed && keyboard_check(vk_f6)
 				" is_hovering:" + string(is_hovering) +
 				" is_dragged:" + string(is_dragged) +
 				" has current_menu:" + string(current_menu != noone))
+		}
+	} else {
+		with (lowest_object) {
+			show_debug_message("abs x,y: " + string(x) + ", " + string(y))
+			if variable_instance_exists(self, "parent_component") && parent_component != noone {
+				show_debug_message("rel x,y: " + string(x - parent_component.x) + ", " + string(y - parent_component.y))
+			}
 		}
 	}
 

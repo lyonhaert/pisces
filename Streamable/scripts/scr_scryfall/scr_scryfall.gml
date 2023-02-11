@@ -106,6 +106,20 @@ function CardFactory() constructor
 						card_data = data;
 						break;
 					
+					case "error":
+						try {
+							var fid = file_text_open_append("errors_scryfall.txt")
+							file_text_write_string(fid, json)
+							file_text_writeln(fid)
+							file_text_close(fid)
+						} catch(err) {
+							show_debug_message(err.message);
+						    show_debug_message(err.longMessage);
+						    show_debug_message(err.script);
+						    show_debug_message(err.stacktrace);
+						}
+						return false;
+						
 					default:
 						return false;
 				}
@@ -128,6 +142,19 @@ function CardFactory() constructor
 			else if response_status == -1
 			{
 				// Some sort of HTTP error occurred
+				try {
+					var fid = file_text_open_append("errors_scryfall.txt")
+					var httpstat = async_load[? "http_status"] ?? "?"
+					var result = async_load[? "result"] ?? "?"
+					file_text_write_string(fid, "HTTP error " + httpstat + ": " + result)
+					file_text_writeln(fid)
+					file_text_close(fid)
+				} catch(err) {
+					show_debug_message(err.message);
+					show_debug_message(err.longMessage);
+					show_debug_message(err.script);
+					show_debug_message(err.stacktrace);
+				}
 				return false
 			}
 		}

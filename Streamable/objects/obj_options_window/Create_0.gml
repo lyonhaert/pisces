@@ -85,6 +85,27 @@ var labelTapDeselect = instance_create_layer(
 	}
 );
 
+ylevel += yldiff
+var checkboxTokensExistInZones = instance_create_layer(x + 20, y + ylevel, "UI", obj_checkbox,
+{
+	"parent_component": id,
+	"checked": obj_options.tokens_exist_in_zones,
+	"on_click": function() { obj_options.tokens_exist_in_zones = !obj_options.tokens_exist_in_zones }
+})
+
+var labelTokensExistInZones = instance_create_layer(
+	checkboxTokensExistInZones.x + checkboxTokensExistInZones.image_xscale + 10,
+	checkboxTokensExistInZones.y + checkboxTokensExistInZones.image_yscale / 2,
+	"UI",
+	obj_label,
+	{
+		"parent_component": id,
+		"label_font": fnt_beleren,
+		"label_text": "Tokens exist in zones",
+		"label_valign": fa_center
+	}
+);
+
 ylevel += yldiff;
 var buttonCamToggle = instance_create_layer(x + 20, y + ylevel, "UI", obj_button,
 {
@@ -109,3 +130,11 @@ var buttonLoadSleeves = instance_create_layer(buttonLoadBG.x + buttonLoadBG.imag
 	"on_click": function() { load_sleeves(obj_options) },
 	"button_text": "Load Sleeves"
 });
+
+var cgName = "Clear Objects"
+var buttonClearGame = instance_create_layer((x + width) - (40 + string_width(cgName)), buttonLoadBG.y, "UI", obj_button,
+{
+	"parent_component": id,
+	"on_click": clearGameObjects,
+	"button_text": cgName
+})

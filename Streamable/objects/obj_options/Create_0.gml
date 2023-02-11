@@ -52,6 +52,7 @@ tap_length = 1000000 * 0.33;
 snap_to_grid = true;
 grid_size = 64;
 draw_grid = false;
+debug_specials = true;
 
 multi_drag = false;
 
