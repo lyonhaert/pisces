@@ -14,6 +14,8 @@
 - Fixed a minor bug with numeric factor entry that could cause repeats of the last number from a non-numeric keypress.
 - Clear Objects button in Options to remove all cards, making it easier to load in a different deck.
 - Errors from Scryfall will try to be written to `errors_scryfall.txt`, which will be located where `settings.ini` and card image caching is, in `%USERPROFILE%\AppDate\Local\Streamable\`. (this may change from Streamable to something else in the future)
+- TODO scryfall page
+- TODO clear counters
 
 ---
 # 2023-02-03

@@ -1,5 +1,5 @@
 /// @description Set bounding box
-draw_options = min(6, array_length(options));
+draw_options = min(10, array_length(options));
 image_xscale = width + 2 * padding;
 image_yscale = height * draw_options + 2 * padding + divider_height * array_length(dividers);
 surf_height = height * array_length(options) + 2 * padding + divider_height * array_length(dividers);

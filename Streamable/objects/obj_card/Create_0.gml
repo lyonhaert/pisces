@@ -41,10 +41,7 @@ counterSize = 20;
 my_submenu = new RightClickMenu();
 my_partsmenu = new RightClickMenu();
 
-var rcto_hand = function() {
-	rcMenuBindSim("move_hand")
-}
-var to_hand = new RightClickMenuOption("Hand", rcto_hand, noop, noop, spr_hand, "H");
+var to_hand = new RightClickMenuOption("Hand", function(){rcMenuBindSim("move_hand")}, noop, noop, spr_hand, "H");
 var to_top = new RightClickMenuOption("Top of Library", function(){rcMenuBindSim("move_top_deck")}, noop, noop, spr_book, "J");
 var to_bottom = new RightClickMenuOption("Bottom of Library", function(){rcMenuBindSim("move_bottom_deck")}, noop, noop, spr_book_bookmark, "K");
 var to_graveyard = new RightClickMenuOption("Graveyard", function(){rcMenuBindSim("move_graveyard")}, noop, noop, spr_skull_crossbones, "G");
@@ -65,9 +62,14 @@ var note = new RightClickMenuOption("Update Note", update_note, noop, noop, spr_
 //var spawn = new RightClickMenuOption("Make Spawner", create_spawner, noop, noop);
 var add_counter = new RightClickMenuOption("Add Counter", function(){rcMenuBindSim("counter_increment")}, noop, noop, spr_counter_add, "+");
 var rem_counter = new RightClickMenuOption("Remove Counter", function(){rcMenuBindSim("counter_decrement")}, noop, noop, spr_counter_rem, "-");
+var clear_counters = new RightClickMenuOption("Clear Counters", clear_selected_cards_counters, noop, noop, spr_counter_rem)
+clear_counters.draw_color = c_red
 var toggle_token = new RightClickMenuOption("Toggle Token", function(){rcMenuBindSim("card_token")}, noop, noop, spr_shapes, "B");
 var destroy = new RightClickMenuOption("Delete", function(){rcMenuBindSim("card_delete")}, noop, noop, spr_trash, "X");
 destroy.draw_color = c_red;
+
+var openScryfall = function() {	url_open(cardinfo.scryfall_uri) }
+var scryfallOption = new RightClickMenuOption("Scryfall page", openScryfall, noop, noop, spr_envelope)
 
 my_menu = new RightClickMenu();
 my_menu.AddOption(tap);
@@ -106,11 +108,14 @@ my_menu.AddSeparator();
 my_menu.AddOption(note);
 my_menu.AddOption(add_counter);
 my_menu.AddOption(rem_counter);
+my_menu.AddOption(clear_counters)
 //my_menu.AddOption(spawn);
 my_menu.AddSeparator();
 my_menu.AddOption(send_to);
 my_menu.AddOption(toggle_token);
 my_menu.AddOption(destroy);
+my_menu.AddSeparator()
+my_menu.AddOption(scryfallOption)
 
 height_priority = next_height_priority();
 owning_canvas = noone;
@@ -119,10 +124,7 @@ current_menu = noone;
 
 save_struct = undefined;
 
-default_subbed_events = {}/*
-	"counter_increment": 1,
-	"counter_decrement": 2
-};*/
+default_subbed_events = {}
 
 during_drag_events = {
 	"coalesce": 0

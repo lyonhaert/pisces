@@ -12,6 +12,17 @@ function change_card_counters(card_inst, type = "default", num = 1) {
 	card_inst.counters[$ type] = max(0, (card_inst.counters[$ type] ?? 0) + num)
 }
 
+function clear_card_counters(card_inst) {
+	delete card_inst.counters
+	card_inst.counters = {"default": 0}
+	card_inst.countersOtherNames = []
+}
+
+function clear_selected_cards_counters() {
+	var cards = find_selected_cards(obj_keyboard_dispatch.emptyFilter)
+	array_foreach(cards, clear_card_counters)
+}
+
 function tap_card(card_inst) {
 	if (!card_inst.is_tapping) {
 		card_inst.is_tapping = true
@@ -145,9 +156,7 @@ function add_to_card_stack_location(card_inst, stack_inst, pos = -1)
 	card_inst.drag_start_zone = noone;
 	
 	if stack_inst.hidden_zone {
-		delete card_inst.counters
-		card_inst.counters = {"default": 0}
-		card_inst.countersOtherNames = []
+		clear_card_counters(card_inst)
 	}
 
 	if stack_inst.object_index == obj_exile
